@@ -65,6 +65,6 @@ a brand new deployment is created.
 
 ## Before going live
 
-- The footer currently has no phone number or email. Add them once
-  available, or keep the site pointing people to the Book Now form.
+- The footer shows a phone number ((548) 398 5461) but no email yet.
+  Add an email once one is available.
 - Connect the booking form to Google Sheets using the steps above.
