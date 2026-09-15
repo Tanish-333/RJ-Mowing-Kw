@@ -367,20 +367,15 @@ section {
 
 .hero-stats {
   display: flex;
-  gap: 0;
-  margin-top: 48px;
+  gap: 40px;
+  margin-top: 44px;
   flex-wrap: wrap;
+  padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .hero-stat {
-  padding: 18px 28px 0 0;
-  margin-right: 28px;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.hero-stat:last-child {
-  border-right: none;
+  padding: 0;
 }
 
 .hero-stat strong {
@@ -500,14 +495,11 @@ section {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--line-soft);
-  border: 1px solid var(--line-soft);
+  gap: 36px;
 }
 
 .service-card {
-  background: var(--card);
-  padding: 30px 26px;
+  padding: 0;
 }
 
 .service-icon {
@@ -545,17 +537,11 @@ section {
 .why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  gap: 40px;
 }
 
 .why-card {
-  padding: 30px 30px 30px 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.why-card:last-child {
-  border-right: none;
+  padding: 0;
 }
 
 .why-card .service-icon {
@@ -579,17 +565,11 @@ section {
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 40px;
 }
 
 .step {
-  padding: 26px 26px 4px 0;
-  border-right: 1px solid var(--line);
-}
-
-.step:last-child {
-  border-right: none;
+  padding: 0;
 }
 
 .step-number {
@@ -673,17 +653,13 @@ section {
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 36px;
 }
 
 .testimonial-card {
-  padding: 28px 28px 28px 0;
-  border-right: 1px solid var(--line);
-}
-
-.testimonial-card:last-child {
-  border-right: none;
+  padding: 24px;
+  background: var(--card);
+  border-radius: var(--radius);
 }
 
 .stars {
@@ -831,19 +807,19 @@ section {
 .tier-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  gap: 24px;
 }
 
 .tier-card {
-  padding: 32px 28px 28px 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 28px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius);
   display: flex;
   flex-direction: column;
 }
 
-.tier-card:last-child {
-  border-right: none;
+.tier-card.featured {
+  border-color: var(--gold);
 }
 
 .tier-card h3,
@@ -1277,24 +1253,7 @@ section {
   .testimonial-grid,
   .tier-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .why-card,
-  .testimonial-card,
-  .step {
-    border-right: none;
-    border-bottom: 1px solid var(--line-soft);
-  }
-
-  .why-card,
-  .tier-card {
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  }
-
-  .testimonial-card,
-  .step {
-    border-bottom: 1px solid var(--line);
+    gap: 32px;
   }
 
   .trust-grid {
@@ -1369,6 +1328,7 @@ section {
   .trust-grid,
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .footer-grid {
@@ -1383,12 +1343,6 @@ section {
   .hero-stats {
     flex-direction: column;
     gap: 14px;
-  }
-
-  .hero-stat {
-    border-right: none;
-    padding-right: 0;
-    margin-right: 0;
   }
 }
 
