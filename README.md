@@ -31,9 +31,14 @@ This logic lives in `js/booking.js` in the `buildTimeSlots` function.
 
 ## Connecting the booking form to Google Sheets
 
-The booking form is ready to submit to a Google Apps Script Web App, which
-will write each booking as a new row in a Google Sheet. This has not been
-connected yet. To finish the setup:
+The booking form is connected. `js/booking.js` submits to the deployed
+Google Apps Script Web App, which writes each booking as a new row in a
+Google Sheet using `apps-script/Code.gs`. Every booking submitted on
+`book-now.html` is added as a new row in the "Bookings" tab of the Sheet,
+with these columns: Timestamp, Name, Email, Phone, Service Address, Service
+Type, Preferred Date, Preferred Time, Notes, Submitted At, Source.
+
+To set this up again from scratch, or on a different Sheet:
 
 1. Create a new Google Sheet (for example, name it "RJ Mowing KW Bookings").
 2. In the Sheet, open **Extensions > Apps Script**.
@@ -46,17 +51,9 @@ connected yet. To finish the setup:
    - Who has access: **Anyone**.
 6. Click **Deploy** and authorize the script when prompted.
 7. Copy the Web App URL that is generated.
-8. Open `js/booking.js` in this project and replace:
-   ```js
-   var GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
-   ```
-   with the copied URL.
+8. Open `js/booking.js` in this project and replace the value of
+   `GOOGLE_SCRIPT_URL` with the copied URL.
 9. Re-deploy the site (or refresh the page if testing locally).
-
-Once connected, every booking submitted on `book-now.html` will be added as a
-new row in the "Bookings" tab of the Sheet, with these columns: Timestamp,
-Name, Email, Phone, Service Address, Service Type, Preferred Date, Preferred
-Time, Notes, Submitted At, Source.
 
 If the Apps Script code is ever updated after the first deployment, use
 **Deploy > Manage deployments > Edit > New version** so the live Web App URL
@@ -67,4 +64,3 @@ a brand new deployment is created.
 
 - The footer shows a phone number ((548) 398 5461) but no email yet.
   Add an email once one is available.
-- Connect the booking form to Google Sheets using the steps above.

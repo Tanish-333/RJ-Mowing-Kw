@@ -5,11 +5,11 @@
 //   Saturday and Sunday: 9:00 AM to 9:00 PM, 30 minute intervals
 //
 // Submission target:
-//   Replace GOOGLE_SCRIPT_URL below with the deployed Google Apps Script
-//   Web App URL once it is created. See apps-script/Code.gs and README.md
-//   for the setup steps and the code to paste into Apps Script.
+//   Bookings are sent to the deployed Google Apps Script Web App, which
+//   appends each one as a row in a Google Sheet. See apps-script/Code.gs
+//   and README.md for the backend code and setup steps.
 
-var GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyh14t0yzmq2VBBDE4nvwsRNqSaplEQFTfp3fJduIXUTJSBJzi0vAKeEs3Z7AeQskCfDA/exec";
 
 function buildTimeSlots(dayOfWeek) {
   var isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
