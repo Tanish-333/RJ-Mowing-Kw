@@ -65,8 +65,6 @@ a brand new deployment is created.
 
 ## Before going live
 
-- Replace the placeholder phone number and email in the footer with the
-  real business contact details.
-- Replace the sample testimonials on the homepage with real customer
-  reviews once available.
+- The footer currently has no phone number or email. Add them once
+  available, or keep the site pointing people to the Book Now form.
 - Connect the booking form to Google Sheets using the steps above.

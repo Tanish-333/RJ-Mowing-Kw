@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatus(
           "success",
           "Thank you, " + payload.name + ". Your request for " + payload.date + " at " + payload.time +
-          " has been received. We will contact you shortly to confirm your appointment."
+          " has been received. You will get a text or a call as soon as possible to confirm your appointment."
         );
         form.reset();
         populateTimeSlots();
