@@ -1,6 +1,6 @@
 # RJ Mowing KW
 
-Website for RJ Mowing KW, a lawn mowing business serving Kitchener and Waterloo, Ontario.
+Website for RJ Mowing KW, a lawn mowing business serving Kitchener, Waterloo, and Cambridge, Ontario.
 
 ## Structure
 
