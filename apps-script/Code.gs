@@ -30,6 +30,52 @@ var SHEET_HEADERS = [
   "Source"
 ];
 
+function normalizePhoneDigits_(value) {
+  var digits = String(value || "").replace(/\D/g, "");
+  if (digits.length === 11 && digits.charAt(0) === "1") {
+    digits = digits.slice(1);
+  }
+  return digits;
+}
+
+function isRepetitiveOrSequentialDigits_(digits) {
+  if (/^(\d)\1+$/.test(digits)) {
+    return true;
+  }
+  var ascending = "01234567890123456789";
+  var descending = "98765432109876543210";
+  return ascending.indexOf(digits) !== -1 || descending.indexOf(digits) !== -1;
+}
+
+function isValidPhoneNumber_(rawValue) {
+  var digits = normalizePhoneDigits_(rawValue);
+  if (digits.length !== 10 || isRepetitiveOrSequentialDigits_(digits)) {
+    return false;
+  }
+  var areaCode = digits.slice(0, 3);
+  var exchangeCode = digits.slice(3, 6);
+  return /^[2-9]\d{2}$/.test(areaCode) && /^[2-9]\d{2}$/.test(exchangeCode);
+}
+
+function isValidServiceAddress_(rawValue) {
+  var value = String(rawValue || "").trim();
+  if (value.length < 8) {
+    return false;
+  }
+
+  var match = value.match(/^(\d{1,6})\s+([A-Za-z][A-Za-z0-9'.-]*(?:\s+[A-Za-z0-9'.-]+)*)/);
+  if (!match) {
+    return false;
+  }
+
+  var letters = match[2].replace(/[^A-Za-z]/g, "");
+  if (letters.length < 3 || /^(.)\1+$/i.test(letters)) {
+    return false;
+  }
+
+  return true;
+}
+
 function getBookingSheet_() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = spreadsheet.getSheetByName(SHEET_NAME);
@@ -49,6 +95,19 @@ function getBookingSheet_() {
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
+
+    if (!isValidPhoneNumber_(data.phone)) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ result: "error", message: "Invalid phone number." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    if (!isValidServiceAddress_(data.address)) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ result: "error", message: "Invalid service address." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     var sheet = getBookingSheet_();
 
     sheet.appendRow([

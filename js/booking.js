@@ -11,6 +11,52 @@
 
 var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyh14t0yzmq2VBBDE4nvwsRNqSaplEQFTfp3fJduIXUTJSBJzi0vAKeEs3Z7AeQskCfDA/exec";
 
+function normalizePhoneDigits(value) {
+  var digits = (value || "").replace(/\D/g, "");
+  if (digits.length === 11 && digits.charAt(0) === "1") {
+    digits = digits.slice(1);
+  }
+  return digits;
+}
+
+function isRepetitiveOrSequentialDigits(digits) {
+  if (/^(\d)\1+$/.test(digits)) {
+    return true;
+  }
+  var ascending = "01234567890123456789";
+  var descending = "98765432109876543210";
+  return ascending.indexOf(digits) !== -1 || descending.indexOf(digits) !== -1;
+}
+
+function isValidPhoneNumber(rawValue) {
+  var digits = normalizePhoneDigits(rawValue);
+  if (digits.length !== 10 || isRepetitiveOrSequentialDigits(digits)) {
+    return false;
+  }
+  var areaCode = digits.slice(0, 3);
+  var exchangeCode = digits.slice(3, 6);
+  return /^[2-9]\d{2}$/.test(areaCode) && /^[2-9]\d{2}$/.test(exchangeCode);
+}
+
+function isValidServiceAddress(rawValue) {
+  var value = (rawValue || "").trim();
+  if (value.length < 8) {
+    return false;
+  }
+
+  var match = value.match(/^(\d{1,6})\s+([A-Za-z][A-Za-z0-9'.-]*(?:\s+[A-Za-z0-9'.-]+)*)/);
+  if (!match) {
+    return false;
+  }
+
+  var letters = match[2].replace(/[^A-Za-z]/g, "");
+  if (letters.length < 3 || /^(.)\1+$/i.test(letters)) {
+    return false;
+  }
+
+  return true;
+}
+
 function buildTimeSlots(dayOfWeek) {
   var isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
   var startMinutes = isWeekend ? 9 * 60 : 15 * 60;
@@ -43,6 +89,37 @@ document.addEventListener("DOMContentLoaded", function () {
   var timeHelp = document.getElementById("timeHelp");
   var statusBox = document.getElementById("formStatus");
   var submitBtn = document.getElementById("submitBtn");
+  var phoneInput = document.getElementById("customerPhone");
+  var addressInput = document.getElementById("serviceAddress");
+
+  function validatePhoneField() {
+    if (phoneInput.value.trim() === "") {
+      phoneInput.setCustomValidity("");
+      return;
+    }
+    phoneInput.setCustomValidity(
+      isValidPhoneNumber(phoneInput.value)
+        ? ""
+        : "Enter a valid 10-digit phone number, e.g. (519) 555-0123."
+    );
+  }
+
+  function validateAddressField() {
+    if (addressInput.value.trim() === "") {
+      addressInput.setCustomValidity("");
+      return;
+    }
+    addressInput.setCustomValidity(
+      isValidServiceAddress(addressInput.value)
+        ? ""
+        : "Enter a full street address with a street number and street name, e.g. 123 Main St, Kitchener."
+    );
+  }
+
+  phoneInput.addEventListener("input", validatePhoneField);
+  phoneInput.addEventListener("blur", validatePhoneField);
+  addressInput.addEventListener("input", validateAddressField);
+  addressInput.addEventListener("blur", validateAddressField);
 
   var today = new Date();
   var todayIso = today.getFullYear() + "-" +
@@ -97,6 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
+
+    validatePhoneField();
+    validateAddressField();
 
     if (!form.checkValidity()) {
       form.reportValidity();
